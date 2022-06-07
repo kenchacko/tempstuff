@@ -7,7 +7,7 @@ the `t3.medium` instance will be the **Conjur Instance**
 
 Ensure the security group for both instances allow for :22 [TCP] (SSH) and :8080 [TCP] (Web servers) inbound traffic.
 
-Your default username on these instances is `ubuntu`, remember that.
+default username on these instances is `ubuntu`
 
 ## IAM
 [Create a user](https://us-east-1.console.aws.amazon.com/iam/home#/users$new?step=details) with **Access Key** access, and the `AmazonEC2ReadOnlyAccess` policy attached.
@@ -36,7 +36,7 @@ Run `conjur user rotate_api_key` to generate API key, save it somewhere.
 ## tutorial
 based on [App and Secrets Enrollment Tutorial: Organizing Policy Management](https://www.conjur.org/get-started/tutorials/enrolling-application/)
 
-**everything here assumes you have executed** `sudo docker exec -it ubuntu_client_1 bash` **and are in the client shell**
+**everything here assumes** `sudo docker exec -it ubuntu_client_1 bash` **in the client shell**
 
 ### create conjur.yml
 * Create directory `policies` in `/root/` (run `mkdir /root/policies`)
@@ -115,7 +115,7 @@ It should create a role. Output like so: (api key will differ)
 }
 ```
 
-Run the following to test, replace api key with your own from above command. This allows you to execute the command `conjur variable value db/password` as the `frontend-01` role:
+Run the following to test, replace api key with from above command. This allows to execute the command `conjur variable value db/password` as the `frontend-01` role:
 ```sh
 CONJUR_AUTHN_LOGIN=host/frontend/frontend-01 \
 CONJUR_AUTHN_API_KEY=1kw55sg2tab1ya201pqqm1bvrrrq3tvv7n13dyfad020jha0p1b5qb5y \
@@ -125,7 +125,7 @@ conjur variable value db/password
 expect:
 `error: 404 Not Found`
 
-You shouldn’t be able to see any objects (empty list) either with:
+shouldn’t be able to see any objects (empty list) either with:
 ```
 CONJUR_AUTHN_LOGIN=host/frontend/frontend-01 \
 CONJUR_AUTHN_API_KEY=1kw55sg2tab1ya201pqqm1bvrrrq3tvv7n13dyfad020jha0p1b5qb5y \
@@ -153,7 +153,7 @@ run: `conjur resource permitted_roles variable:db/password execute`
 
 Expect `quick-start:host:frontend/frontend-01` (or something similar i cant remember) to be one of the roles listed.
 
-And finally check to see if you can now view the password from the `frontend-01` role:
+And finally check to see if can now view the password from the `frontend-01` role:
 ```sh
 CONJUR_AUTHN_LOGIN=host/frontend/frontend-01 \
 CONJUR_AUTHN_API_KEY=1kw55sg2tab1ya201pqqm1bvrrrq3tvv7n13dyfad020jha0p1b5qb5y \
@@ -243,7 +243,7 @@ Run the server
 Then, follow only **Step 4** from here:
 https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-20-04
 
-Note: to get your initialAdminPassword, do one of the following commands:
+Note: to get initialAdminPassword, do one of the following commands:
 * `sudo cat jenkins_config/secrets/initialAdminPassword`
 * `docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`
 
@@ -253,7 +253,7 @@ Install Jenkins `conjur-credentials` plugin: https://plugins.jenkins.io/conjur-c
 
 ### adding credentials to Jenkins
 Go to http://jenkinsIP:8080/credentials/store/system/domain/_/newCredentials
-(Replace jenkinsIP with your Jenkins host)
+(Replace jenkinsIP with Jenkins host)
 
 Set
 * **Kind**: Username with password
@@ -263,7 +263,7 @@ Set
 
 ### adding variable to jenkins
 Go to http://jenkinsIP:8080/credentials/store/system/domain/_/newCredentials
-(Replace jenkinsIP with your Jenkins host)
+(Replace jenkinsIP with Jenkins host)
 
 Set 
 * **Kind**: Conjur Secret Credential
@@ -272,7 +272,7 @@ Set
 
 ### creating a pipeline
 Go to http://jenkinsIP:8080/view/all/newJob
-(Replace jenkinsIP with your Jenkins host)
+(Replace jenkinsIP with Jenkins host)
 
 Select **Pipeline**, press **OK**
 
@@ -309,4 +309,4 @@ node {
 
 End
 ---
-You should be done. Run the build, see what happens.
+Run the build
